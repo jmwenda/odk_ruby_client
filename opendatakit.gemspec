@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Open Data Kit!}
   s.licenses    = ['MIT']
 
+  s.add_dependency('httpclient', '~> 2.4')
+
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
