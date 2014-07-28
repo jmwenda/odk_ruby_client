@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'odk_ruby_client'
+puts ODKInstance.hi(ARGV[0])
