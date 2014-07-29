@@ -36,4 +36,11 @@ attr_accessor:url
     httpresults = http.post(form_post_url,params)
     puts title.text
   end
+  def addSubmissions(submission_data,media_files)
+    submission_post_url = URI.join(@url,"submission")
+    params = { :xml_submission_file => File.open(submission_data)}
+    http = HTTPClient.new
+    httpresults = http.post(submission_post_url,params)
+    puts httpresults.content
+  end
 end
