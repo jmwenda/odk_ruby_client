@@ -24,7 +24,16 @@ attr_accessor:url
     submissions = []
     all_upc_strings = doc.elements.to_a("idChunk/idList")
     all_id_elements = doc.elements.to_a( "//id" )
-    doc.elements.each("idChunk/idList") { |element| submissions.push(element.elements["id"].text) }
+    #doc.elements.each("idChunk/idList") { |element| submissions.push(element.elements["id"].text) }
     puts all_id_elements 
+  end
+  def uploadForm(form_xml)
+    form_post_url = URI.join(@url,"/formUpload")
+    params = { :form_def_file => File.open(form_xml)}
+    doc = REXML::Document.new(File.open(form_xml))
+    title = REXML::XPath.first( doc, "//h:title" )
+    http = HTTPClient.new
+    httpresults = http.post(form_post_url,params)
+    puts title.text
   end
 end
