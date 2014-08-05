@@ -2,7 +2,7 @@ require 'httpclient'
 require 'uri'
 require 'rexml/document'
 require 'stringio'
-require 'nokogiri'
+#require 'nokogiri'
 
 class OdkInstance
 attr_accessor:url
@@ -49,7 +49,7 @@ attr_accessor:url
   end
   def uploadXmlform(doc)
     form_post_url = URI.join(@url,"formUpload")
-    params = { :form_def_file => StringIO.new(doc.to_xml) }
+    params = { :form_def_file => StringIO.new(doc) }
     http = HTTPClient.new
     httpresults = http.post(form_post_url,params)
     if httpresults.status_code == 201
