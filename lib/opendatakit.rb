@@ -1,6 +1,8 @@
 require 'httpclient'
 require 'uri'
 require 'rexml/document'
+require 'stringio'
+require 'nokogiri'
 
 class OdkInstance
 attr_accessor:url
@@ -41,6 +43,17 @@ attr_accessor:url
 
     if httpresults.status_code == 201
       title.text
+    else
+      "Form could not be uploaded"
+    end
+  end
+  def uploadXmlform(doc)
+    form_post_url = URI.join(@url,"formUpload")
+    params = { :form_def_file => StringIO.new(doc.to_xml) }
+    http = HTTPClient.new
+    httpresults = http.post(form_post_url,params)
+    if httpresults.status_code == 201
+      httpresults.status_code
     else
       "Form could not be uploaded"
     end
